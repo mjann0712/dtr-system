@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* Design tokens: logo green, maroon and gold; ruled, form-based tables */
+@theme {
+  --font-sans: var(--font-public-sans), system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-ink: #18211d;
+  --color-ink-2: #5b6275;
+  --color-ink-3: #636b7d;
+  --color-paper: #f3f6f4;
+  --color-line: #e3e8e5;
+  --color-rule: #dfe4e1;
+
+  --color-forest: #0f3b28;
+  --color-forest-2: #174b34;
+  --color-forest-3: #1f5a40;
+  --color-mint: #a3d1b6;
+  --color-mint-2: #d5e4dc;
+
+  --color-primary: #196b47;
+  --color-primary-dark: #13543a;
+  --color-primary-soft: #e7f2ec;
+  --color-chart: #2f8a5e;
+  --color-chart-2: #f2c94c;
+
+  --color-maroon: #9d282e;
+  --color-maroon-dark: #7a1f24;
+  --color-maroon-soft: #fbeced;
+  --color-gold: #f9c301;
+  --color-amber: #8a5300;
+  --color-blue: #1f57c3;
+}
+
+@layer base {
+  html { caret-color: var(--color-primary); accent-color: var(--color-primary); scrollbar-color: #c9cdd6 transparent; }
+  body { @apply bg-paper text-ink antialiased; font-size: 14px; line-height: 1.5; }
+  ::selection { background: #fdeeb0; color: var(--color-ink); }
+  :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 6px; }
+  a { text-underline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-line bg-white px-3.5 py-2 text-[13px] font-medium text-ink no-underline transition-colors hover:border-[#c9d1cc] disabled:cursor-not-allowed disabled:opacity-55; }
+  .btn-primary { @apply border-primary bg-primary text-white hover:bg-primary-dark hover:border-primary-dark; }
+  .btn-danger { @apply border-maroon bg-maroon text-white hover:bg-maroon-dark; }
+  .btn-sm { @apply px-2.5 py-1 text-xs; }
+  .field { @apply flex flex-col gap-1.5; }
+  .field > label { @apply text-[12.5px] font-semibold text-ink-2; }
+  .input { @apply h-[38px] min-w-0 rounded-lg border border-[#d6dcd8] bg-white px-3 text-sm text-ink outline-none focus:border-primary focus:ring-3 focus:ring-primary-soft; }
+  .muted { @apply text-[13px] text-ink-3; }
+
+  /* Ruled table, taken from the HR form */
+  .ruled { @apply w-full border-collapse; }
+  .ruled th { @apply sticky top-0 z-[1] border-t-[1.5px] border-b border-ink bg-paper px-3 py-2.5 text-left text-xs font-bold uppercase tracking-wide whitespace-nowrap; }
+  .ruled td { @apply border-b border-rule px-3 py-2.5 text-[13.5px]; }
+  .ruled tr.go { @apply cursor-pointer; }
+  .ruled tr.go:hover td { @apply bg-primary-soft; }
+  .num { @apply text-right tabular-nums; }
+  .zero { color: #b6bdb9; }
+  .hot { @apply font-bold text-maroon; }
+
+  /* The printed DTR form */
+  .formhead { @apply mb-4 w-full border-collapse; }
+  .formhead td { @apply border border-ink px-2.5 py-1.5 text-center text-[12.5px] font-semibold; }
+  .form { @apply w-full border-collapse; }
+  .form th, .form td { @apply border border-[#98a49d] px-2 py-1.5 text-center text-[12.5px] whitespace-nowrap; }
+  .form th { @apply bg-[#eef3f0] text-xs font-bold uppercase tracking-wide; }
+  .form td:first-child { @apply text-left; }
+  .form tfoot td { @apply bg-[#eef3f0] font-bold; }
+}
+
+/* Landing demo: punches stamp into the DTR row once */
+@keyframes stamp { from { transform: scale(1.12); filter: blur(3px); opacity: .25; } to { transform: none; filter: none; opacity: 1; } }
+@keyframes rowlit { 0%, 60% { background: #fdeeb0; } 100% { background: transparent; } }
+.play .raw-row { animation: rowlit 2.4s cubic-bezier(.16,1,.3,1) both; }
+.play .raw-row:nth-child(2) { animation-delay: .25s; } .play .raw-row:nth-child(3) { animation-delay: .5s; } .play .raw-row:nth-child(4) { animation-delay: .75s; }
+.play .stamp { animation: stamp .7s cubic-bezier(.16,1,.3,1) both; }
+.play .stamp:nth-child(1) { animation-delay: .35s; } .play .stamp:nth-child(2) { animation-delay: .6s; } .play .stamp:nth-child(3) { animation-delay: .85s; } .play .stamp:nth-child(4) { animation-delay: 1.1s; }

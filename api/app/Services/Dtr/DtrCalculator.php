@@ -26,7 +26,12 @@ class DtrCalculator
             'capToSched' => false,
             'includeNoPunch' => false,
             'compact' => false,
-            'institutions' => [],             // DEPT => institution
+            // DEPT => institution (change in Rules & schedules > Departments)
+            'institutions' => [
+                'ELEM' => 'Basic Education', 'JHS' => 'Basic Education', 'SHS' => 'Basic Education', 'SPED' => 'Basic Education',
+                'ALLIED' => 'College', 'DBA' => 'College', 'DCJE' => 'College', 'DHM' => 'College', 'DON' => 'College', 'DTS' => 'College', 'TED' => 'College',
+                'OP' => 'Administration', 'OVPAA' => 'Administration', 'FINANCE' => 'Administration', 'REGISTRAR' => 'Administration', 'GEN SERVICES' => 'Administration',
+            ],
             'meta' => ['org' => '', 'docNo' => 'F-HR-810-010', 'revNo' => '0', 'effDate' => '', 'verifier' => 'Department Head', 'noter' => 'HR Officer'],
         ];
     }
